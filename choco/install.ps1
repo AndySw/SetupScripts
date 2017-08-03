@@ -37,7 +37,8 @@ choco install dotpeek
 choco install slack
 choco install psake
 choco install linqpad
-choco install p4v
-
+choco install p4merge
+choco install dependencywalker
 #choco install beyondcompare
 #choco install resharper
+#choco install dotcover
