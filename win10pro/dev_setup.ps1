@@ -19,6 +19,7 @@ function Add-Path() {
     # Show our results back to the world
     Return $NewPath
 }
+
 ######################################################
 # Install Hyper-V
 ######################################################
@@ -34,7 +35,8 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/in
 Write-Host
 
 Write-Host "Installing applications from Chocolatey"
-cinst git -y
+cinst git -y
+
 cinst nodejs -y
 cinst PhantomJS -y
 cinst poshgit -y
@@ -48,17 +50,22 @@ cinst lastpass -y
 cinst javaruntime-preventasktoolbar -y
 cinst tortoisesvn -y
 cinst micro -y
-cinst 7zip.install -yy
+cinst 7zip.install
+ -yy
 cinst adobereader -y
 cinst jdk8 -y
 cinst vlc -y
-cinst paint.net -yy
+cinst paint.net
+ -yy
 cinst itunes -y
-cinst windirstat -yy
-cinst visualstudiocode -yy
+cinst windirstat
+ -yy
+cinst visualstudiocode
+ -yy
 cinst sourcetree -y
 cinst cmder -y
-cinst docker-for-windows -yy
+cinst docker-for-windows
+ -yy
 cinst spotify -y
 cinst jq -y
 cinst yarn -y
@@ -84,7 +91,9 @@ Write-Host "Setting home variable"
 [Environment]::SetEnvironmentVariable("HOME", $HOME, "User")
 [Environment]::SetEnvironmentVariable("CHROME_BIN", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "User")
 [Environment]::SetEnvironmentVariable("PHANTOMJS_BIN", "C:\tools\PhanomJS\phantomjs.exe", "User")
-Write-Host
+Write-Host
+
+
 
 ######################################################
 # Install SQL Express 2014
