@@ -42,3 +42,6 @@ choco install dependencywalker
 #choco install beyondcompare
 #choco install resharper
 #choco install dotcover
+
+
+npm install -g yo
