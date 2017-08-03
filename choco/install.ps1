@@ -32,10 +32,12 @@ choco install docker-for-windows
 choco install spotify
 choco install jq
 choco install yarn
-choco install resharper
-choco install beyondcompare
 choco install lastpass
 choco install dotpeek
 choco install slack
 choco install psake
 choco install linqpad
+choco install p4v
+
+#choco install beyondcompare
+#choco install resharper
