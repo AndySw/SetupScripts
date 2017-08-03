@@ -39,9 +39,11 @@ choco install psake
 choco install linqpad
 choco install p4merge
 choco install dependencywalker
+choco install selenium-all-drivers
 #choco install beyondcompare
 #choco install resharper
 #choco install dotcover
+#choco install visualstudio2017professional
+#choco install jmeter
 
-
-npm install -g yo
+#npm install -g yo
