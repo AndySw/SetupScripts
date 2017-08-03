@@ -19,39 +19,62 @@ function Add-Path() {
     # Show our results back to the world
     Return $NewPath
 }
+######################################################
+# Install Hyper-V
+######################################################
+Write-Host "Installing Hyper-V"
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+Write-Host
 
 ######################################################
 # Install apps using Chocolatey
 ######################################################
 Write-Host "Installing Chocolatey"
-iex ((new-object net.webclient).DownloadString('http://bit.ly/psChocInstall'))
+iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 Write-Host
 
 Write-Host "Installing applications from Chocolatey"
-cinst git -y
-cinst ruby -y
+cinst git -y
 cinst nodejs -y
 cinst PhantomJS -y
-cinst webpi -y
 cinst poshgit -y
-cinst sublimetext3 -y
-cinst ConEmu -y
-cinst python -y
-choco install easy.install -y
-cinst putty -y
 cinst GoogleChrome -y
-choco install firefox-dev -pre -y
+cinst firefox-dev -pre -y
 cinst fiddler4 -y
 cinst filezilla -y
 cinst dropbox -y
-cinst winmerge -y
-cinst kdiff3 -y
-cinst winrar -Version 4.20.0 -y
-cinst mongodb -y
-cinst NugetPackageExplorer -y
 cinst Evernote -y
-choco install brackets -y
-choco install lastpass -y
+cinst lastpass -y
+cinst javaruntime-preventasktoolbar -y
+cinst tortoisesvn -y
+cinst micro -y
+cinst 7zip.install -yy
+cinst adobereader -y
+cinst jdk8 -y
+cinst vlc -y
+cinst paint.net -yy
+cinst itunes -y
+cinst windirstat -yy
+cinst visualstudiocode -yy
+cinst sourcetree -y
+cinst cmder -y
+cinst docker-for-windows -yy
+cinst spotify -y
+cinst jq -y
+cinst yarn -y
+cinst ilspy -y
+cinst slack -y
+cinst psake -y
+cinst linqpad -y
+cinst p4merge -y
+cinst selenium-all-drivers -y
+cinst zeal.install -y
+#cinst usbdeview -y
+#cinst visualstudio2017professional
+#cinst beyondcompare
+#cinst resharper
+#cinst dotcover
+
 Write-Host
 
 ######################################################
@@ -61,33 +84,17 @@ Write-Host "Setting home variable"
 [Environment]::SetEnvironmentVariable("HOME", $HOME, "User")
 [Environment]::SetEnvironmentVariable("CHROME_BIN", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "User")
 [Environment]::SetEnvironmentVariable("PHANTOMJS_BIN", "C:\tools\PhanomJS\phantomjs.exe", "User")
-Write-Host
+Write-Host
 
 ######################################################
-# Download custom .bashrc file
-######################################################
-Write-Host "Creating .bashrc file for use with Git Bash"
-$filePath = $HOME + "\.bashrc"
-New-Item $filePath -type file -value ((new-object net.webclient).DownloadString('http://bit.ly/winbashrc'))
-Write-Host
-
-######################################################
-# Install Windows installer through WebPI
-######################################################
-Write-Host "Installing apps from WebPI"
-cinst WindowsInstaller31 -source webpi
-cinst WindowsInstaller45 -source webpi
-Write-Host
-
-######################################################
-# Install SQL Express 2012
+# Install SQL Express 2014
 ######################################################
 Write-Host
 do {
     $createSiteData = Read-Host "Do you want to install SQLExpress? (Y/N)"
 } while ($createSiteData -ne "Y" -and $createSiteData -ne "N")
 if ($createSiteData -eq "Y") {
-    cinst SqlServer2012Express
+    cinst mssqlserver2014express
 }
 Write-Host
 
@@ -118,19 +125,10 @@ Write-Host
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
 
 ######################################################
-# Update RubyGems and install some gems
-######################################################
-Write-Host "Update RubyGems"
-choco install ruby2.devkit -y
-gem update --system
-gem install bundler
-Write-Host
-
-######################################################
 # Install npm packages
 ######################################################
 Write-Host "Install NPM packages"
-npm install -g yo gulp karma bower jshint nodemon
+npm install -g yo
 Write-Host
 
 ######################################################
@@ -142,13 +140,6 @@ $dirssh = "$home\.ssh"
 mkdir $dirssh
 $filersa = $dirssh + "\id_rsa"
 ssh-keygen -t rsa -f $filersa -q -C $userEmail
-Write-Host
-
-######################################################
-# Add MongoDB to the path
-######################################################
-Write-Host "Adding MongoDB to the path"
-Add-Path "C:\MongoDB\bin"
 Write-Host
 
 ######################################################
