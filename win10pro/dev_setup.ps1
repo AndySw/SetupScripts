@@ -1,86 +1,47 @@
-function Add-Path() {
-    [Cmdletbinding()]
-    param([parameter(Mandatory=$True,ValueFromPipeline=$True,Position=0)][String[]]$AddedFolder)
-    # Get the current search path from the environment keys in the registry.
-    $OldPath=(Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).Path
-    # See if a new folder has been supplied.
-    if (!$AddedFolder) {
-        Return 'No Folder Supplied. $ENV:PATH Unchanged'
-    }
-    # See if the new folder exists on the file system.
-    if (!(TEST-PATH $AddedFolder))
-    { Return 'Folder Does not Exist, Cannot be added to $ENV:PATH' }cd
-    # See if the new Folder is already in the path.
-    if ($ENV:PATH | Select-String -SimpleMatch $AddedFolder)
-    { Return 'Folder already within $ENV:PATH' }
-    # Set the New Path
-    $NewPath=$OldPath+’;’+$AddedFolder
-    Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH –Value $newPath
-    # Show our results back to the world
-    Return $NewPath
-}
-
-######################################################
 # Install Hyper-V
-######################################################
 Write-Host "Installing Hyper-V"
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
 Write-Host
 
-######################################################
 # Install apps using Chocolatey
-######################################################
 Write-Host "Installing Chocolatey"
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 Write-Host
 
 Write-Host "Installing applications from Chocolatey"
-cinst git -y
+choco feature enable -n allowGlobalConfirmation
 
-cinst nodejs -y
-cinst PhantomJS -y
-cinst poshgit -y
+cinst slack -y
 cinst GoogleChrome -y
-cinst firefox-dev -pre -y
-cinst fiddler4 -y
-cinst filezilla -y
 cinst dropbox -y
 cinst Evernote -y
-cinst lastpass -y
-cinst javaruntime-preventasktoolbar -y
-cinst tortoisesvn -y
+cinst visualstudiocode -y
 cinst micro -y
-cinst 7zip.install
- -yy
-cinst adobereader -y
+cinst 7zip.install -y
+cinst docker-for-windows -y
 cinst jdk8 -y
-cinst vlc -y
-cinst paint.net
- -yy
+cinst windirstat -y
+cinst paint.net -y
+cinst visualstudio2013professional -y
+cinst keyboard-layout-creator -y
 cinst itunes -y
-cinst windirstat
- -yy
-cinst visualstudiocode
- -yy
-cinst sourcetree -y
+cinst unifying -y
 cinst cmder -y
-cinst docker-for-windows
- -yy
 cinst spotify -y
-cinst jq -y
-cinst yarn -y
 cinst ilspy -y
-cinst slack -y
-cinst psake -y
 cinst linqpad -y
-cinst p4merge -y
-cinst selenium-all-drivers -y
+cinst resharper -y
+cinst jq -y
 cinst zeal.install -y
-#cinst usbdeview -y
-#cinst visualstudio2017professional
-#cinst beyondcompare
-#cinst resharper
-#cinst dotcover
+cinst beyondcompare -y
+cinst git -y
+cinst sourcetree -y
+cinst dotcover -y
+cinst dottrace -y
+cinst dotmemory -y
+cinst nodejs -y
+cinst phantomjs -y
+cinst sqlserver-cmdlineutils -y
 
 Write-Host
 
@@ -92,8 +53,6 @@ Write-Host "Setting home variable"
 [Environment]::SetEnvironmentVariable("CHROME_BIN", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "User")
 [Environment]::SetEnvironmentVariable("PHANTOMJS_BIN", "C:\tools\PhanomJS\phantomjs.exe", "User")
 Write-Host
-
-
 
 ######################################################
 # Install SQL Express 2014
